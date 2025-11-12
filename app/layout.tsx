@@ -34,26 +34,34 @@ export default function RootLayout({
           src="https://www.googletagmanager.com/gtag/js?id=AW-17676937010"
           strategy="afterInteractive"
         />
-        <Script id="google-ads" strategy="afterInteractive">
+        <Script id="google-ads-init" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'AW-17676937010');
+          `}
+        </Script>
 
-            // Função de conversão
+        {/* Conversão de Contato */}
+        <Script id="google-ads-conversion" strategy="afterInteractive">
+          {`
             function gtag_report_conversion(url) {
-              var callback = function () {
-                if (typeof(url) !== 'undefined') {
-                  window.open(url, '_blank');
+              const callback = function () {
+                if (typeof url !== 'undefined') {
+                  window.location.href = url;
                 }
               };
               gtag('event', 'conversion', {
-                'send_to': 'DubeCNvQhbMbELLOgu1B', // substitua se tiver outro ID
+                'send_to': 'AW-17676937010/DubeCNvQhbMbELLOgu1B',
+                'value': 1.0,
+                'currency': 'BRL',
                 'event_callback': callback
               });
               return false;
             }
+
+            // Disponibiliza globalmente
             window.gtag_report_conversion = gtag_report_conversion;
           `}
         </Script>

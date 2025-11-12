@@ -1,23 +1,26 @@
 "use client"
 
 import Link from "next/link"
+import React from "react"
 
 export default function WhatsAppButton() {
+  const whatsappUrl =
+    "https://wa.me/+556392339057?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es."
+
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
-    const url =
-      "https://wa.me/+556392339057?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es."
-
+    // Garante que o script do Google Ads já foi carregado
     if (typeof window !== "undefined" && (window as any).gtag_report_conversion) {
-      ;(window as any).gtag_report_conversion(url)
+      ;(window as any).gtag_report_conversion(whatsappUrl)
     } else {
-      window.open(url, "_blank")
+      // Caso ainda não tenha carregado, abre normalmente
+      window.open(whatsappUrl, "_blank")
     }
   }
 
   return (
     <Link
-      href="https://wa.me/+556392339057?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es."
+      href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
       onClick={handleClick}
